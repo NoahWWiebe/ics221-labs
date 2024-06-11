@@ -84,7 +84,7 @@
       },
       "put": {
         "summary": "Add messages",
-        "operationId": "addMessage",
+        "operationId": "addNewMessage",
         "description": "Add a new message.",
         "requestBody": {
           "description": "Message's data",
