@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Example</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- React Bootstrap CSS Component Library -->
+    <script src="https://cdn.jsdelivr.net/npm/react-bootstrap@next/dist/react-bootstrap.min.js" crossorigin></script>
+    <!-- CSS Stylesheet used by React Bootstrap (the vanilla bootstrap) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+        const container = document.getElementById('app');
+
+        function Header() {
+            return (
+                <div className="ps-3 p-3 mb-3 mt-3 bg-light border border-2 border-dark rounded-3">
+                    <h2>ICS 221 Message Board App</h2>
+                </div>
+            );
+        }
+
+        function FavoriteItemList() {
+            const { Table } = ReactBootstrap;
+
+            const favouriteItems = [
+                { id: 1, name: "Bill", link: "Hi All!" },
+                { id: 2, name: "Ann", link: "ICS 221 is fun!" },
+                { id: 3, name: "Johnny", link: "I'm stranded!" },
+                { id: 4, name: "Barb", link: "Hi" },
+                { id: 5, name: "Frank", link: "Who's tired?" },
+                { id: 6, name: "Sarah", link: "I heart React" },
+            ];
+
+            return (
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <td><b>#</b></td>
+                            <td><b>Name</b></td>
+                            <td><b>Message</b></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {favouriteItems.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item.id}</td>
+                                <td>{item.name}</td>
+                                <td>{item.link}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            );
+        }
+
+        function Footer() {
+            return (
+                <div className="text-end">
+                    <p>&copy;{new Date().getFullYear()} Noah Wiebe</p>
+                </div>
+            )
+        }
+
+        function App() {
+            const { Container, Col, Row } = ReactBootstrap;
+
+            return (
+                <Container>
+                    <Row className="justify-content-center">
+                        <Col lg={8}>
+                            <Header />
+                        </Col>
+                    </Row>
+                    <Row className="justify-content-center">
+                        <Col lg={8}>
+                            <FavoriteItemList />
+                        </Col>
+                    </Row>
+                    <Row className="justify-content-center">
+                        <Col lg={8}>
+                            <Footer />
+                        </Col>
+                    </Row>
+                </Container>
+            );
+        }
+
+        ReactDOM.render(<App />, container);
+    </script>
+</body>
+
+</html>
