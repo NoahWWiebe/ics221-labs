@@ -9,7 +9,7 @@ const [messages, setMessages] = useState([
 
 // GET Request Handler
 const getAllMessages = (req, res) => {
-  res.status(200).send("Successful API GET Request");
+  res.status(200).json(messages);
 };
 
 // POST Request Handler
