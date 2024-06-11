@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import compression from "compression";
 import morgan from "morgan";
 import cors from "cors";
+import apiRouter from './routes/api-router.js';
 
 const app = express();
 
@@ -18,5 +19,7 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("Node.js Server is live!");
 });
+
+app.use('/v1', apiRouter);
 
 export default app;
