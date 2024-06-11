@@ -27,14 +27,9 @@ const getNextId = () => {
 const addNewMessage = async (req, res) => {
   try {
     let message = await messageSchema.validate(req.body);
-    // TODO: add message as first element of array and
-    // respond with '201 Created' Status Code and
-    //the message, as JSON, in the body of the response.
-
-    message.id = getNextId();
-    messages.unshift(message);
-    res.status(201).json(message);
-    console.log(messages);
+    message.id = getNextId(); // Get unique ID for message
+    messages.unshift(message); // Add to top of array
+    res.status(201).json(message); // Return the new message
   } catch (err) {
     res.status(400).json({
       error: "Bad Request",
