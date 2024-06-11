@@ -1,0 +1,101 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Message Board API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://10.21.75.180:3004/v1",
+      "description": "Message Board API Dev Server"
+    }
+  ],
+  "security": [],
+  "components": {
+    "schemas": {
+      "message": {
+        "type": "object",
+        "description": "A message",
+        "required": ["name", "msgText"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 15,
+            "pattern": "^[A-Za-z0-9_]+$",
+            "description": "Name of User who created the message.",
+            "example": "Fred"
+          },
+          "msgText": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 30,
+            "description": "A message's text.",
+            "example": "Hello World!"
+          }
+        }
+      },
+      "messageWithId": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/message"
+          },
+          {
+            "type": "object",
+            "description": "A message with id",
+            "required": ["id"],
+            "properties": {
+              "id": {
+                "type": "number",
+                "description": "message's id.",
+                "example": 1
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/messages": {
+      "description": "All the messages",
+      "get": {
+        "summary": "List all the messages",
+        "operationId": "getAllMessages",
+        "description": "List all the messages in the order they were posted (newest at top).",
+        "responses": {
+          "200": {
+            "description": "All the messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/messageWithId"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Add messages",
+        "operationId": "addMessage",
+        "description": "Add a new message.",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageWithId"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
