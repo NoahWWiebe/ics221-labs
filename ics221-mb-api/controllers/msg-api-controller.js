@@ -22,17 +22,18 @@ const getAllMessages = async (req, res) => {
   }
 };
 
-const getNextId = () => {
-  if (messages.length === 0) return 0;
-  return Math.max(...messages.map((message) => message.id)) + 1;
-};
+// const getNextId = () => {
+//   if (messages.length === 0) return 0;
+//   return Math.max(...messages.map((message) => message.id)) + 1;
+// };
 
 // POST Request Handler
 const addNewMessage = async (req, res) => {
   try {
-    let message = await messageSchema.validate(req.body);
-    message.id = getNextId(); // Get unique ID for message
-    messages.unshift(message); // Add to top of array
+    //let message = await messageSchema.validate(req.body);
+    //message.id = getNextId(); // Get unique ID for message
+    //messages.unshift(message); // Add to top of array
+    let message = await messageModel.create(req.body);
     res.status(201).json(message); // Return the new message
   } catch (err) {
     res.status(400).json({
