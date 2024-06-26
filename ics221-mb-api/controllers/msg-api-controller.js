@@ -1,17 +1,21 @@
-import messageSchema from "../models/message-schema.js";
+//import messageSchema from "../models/message-schema.js";
+import mongoose from 'mongoose';
 
-const messages = [
-  { id: 5, name: "Bill", msgText: "Hi All!" },
-  { id: 4, name: "Ann", msgText: "ICS 221 is fun!" },
-  { id: 3, name: "Johnny", msgText: "I'm stranded!" },
-  { id: 2, name: "Barb", msgText: "Hi" },
-  { id: 1, name: "Frank", msgText: "Who's tired?" },
-  { id: 0, name: "Sarah", msgText: "I heart React" },
-];
+const messageModel = mongoose.model('message');
+
+// const messages = [
+//   { id: 5, name: "Bill", msgText: "Hi All!" },
+//   { id: 4, name: "Ann", msgText: "ICS 221 is fun!" },
+//   { id: 3, name: "Johnny", msgText: "I'm stranded!" },
+//   { id: 2, name: "Barb", msgText: "Hi" },
+//   { id: 1, name: "Frank", msgText: "Who's tired?" },
+//   { id: 0, name: "Sarah", msgText: "I heart React" },
+// ];
 
 // GET Request Handler
-const getAllMessages = (req, res) => {
+const getAllMessages = async (req, res) => {
   try {
+    let messages = await messageModel.find( {}, '', { sort: { _id: -1 } } ).exec();
     res.status(200).json(messages);
   } catch {
     res.status(400).send("Bad Request");
