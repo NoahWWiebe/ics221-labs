@@ -8,7 +8,7 @@ const MessageBoard = ({ jsonData }) => {
 
   const addNewMessage = async (values) => {
     axios
-      .post("http://10.21.75.180:3004/v1/messages", values)
+      .post(`${process.env.NEXT_PUBLIC_HOST}/v1/messages`, values)
       .then((response) => {
         const updatedMessages = [response.data, ...messages];
         setMessages(updatedMessages);

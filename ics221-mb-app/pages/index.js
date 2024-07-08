@@ -8,7 +8,7 @@ import axios from "axios";
 export async function getStaticProps() {
   let jsonData;
   try {
-    const { data } = await axios.get("http://localhost:3004/v1/messages");
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/v1/messages`);
     jsonData = data;
   } catch (error) {
     console.log("API Error: " + error);
