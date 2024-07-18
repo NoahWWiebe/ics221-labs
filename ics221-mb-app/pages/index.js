@@ -4,12 +4,32 @@ import Footer from "@/components/Footer";
 import MessageBoard from "@/components/MessageBoard";
 import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
+import { gql } from "@apollo/client";
+import client from "../apollo-client";
+
+// GraphQL Query to get all the messages
+const GET_MESSAGES = gql`
+  query GetMessages {
+    messages {
+      id
+      name
+      msgText
+    }
+  }
+`;
 
 export async function getStaticProps() {
   let jsonData;
   try {
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/v1/messages`);
-    jsonData = data;
+    //const { data } = await axios.get(
+    //  `${process.env.NEXT_PUBLIC_HOST}/v1/messages`
+    //);
+    const { data } = await client.query({
+      query: GET_MESSAGES,
+      fetchPolicy: "network-only",
+    });
+    //jsonData = data;
+    jsonData = data.messages;
   } catch (error) {
     console.log("API Error: " + error);
   }
@@ -37,7 +57,7 @@ export default function Home({ jsonData }) {
         </Row>
         <Row className="justify-content-center">
           <Col lg={8}>
-            <MessageBoard jsonData={jsonData}/>
+            <MessageBoard jsonData={jsonData} />
           </Col>
         </Row>
         <Row className="justify-content-center">
