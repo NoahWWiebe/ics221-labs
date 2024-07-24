@@ -173,7 +173,7 @@
       "description": "All the users",
       "post": {
         "summary": "Add users",
-        "operationId": "addNewUser",
+        "operationId": "registerNewUser",
         "description": "Add a new user",
         "requestBody": {
           "description": "User's data",
