@@ -8,7 +8,7 @@ const registerNewUser = async (req, res) => {
     if (await alreadyExists(req.body.email, req.body.username)) {
         res.status(429).json({
             error: "Already Exists",
-            message: "The user in the body of the Request is a duplicate."
+            message: "The username or email already exists."
         });
     } else {
         let user = await userModel.create(req.body);
