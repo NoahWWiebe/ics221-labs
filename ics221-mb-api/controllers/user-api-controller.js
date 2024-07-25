@@ -5,7 +5,7 @@ const userModel = mongoose.model("user");
 const registerNewUser = async (req, res) => {
   //res.status(200).send("Successful API New User POST Request");
   try {
-    if (await alreadyExists(req.body.email, req,body.username)) {
+    if (await alreadyExists(req.body.email, req.body.username)) {
         res.status(429).json({
             error: "Already Exists",
             message: "The user in the body of the Request is a duplicate."
