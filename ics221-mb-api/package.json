@@ -27,6 +27,8 @@
     "mongoose": "^8.4.4",
     "mongosh": "^2.2.10",
     "morgan": "^1.10.0",
+    "passport": "^0.7.0",
+    "passport-http": "^0.3.0",
     "yup": "^1.4.0"
   }
 }
