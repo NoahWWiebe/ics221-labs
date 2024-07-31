@@ -12,7 +12,7 @@ const router = express.Router();
 router
   .route("/messages")
   .get(getAllMessages)
-  .post(passport.authenticate("basic", { session: false }), addNewMessage);
+  .post(passport.authenticate("jwt", { session: false }), addNewMessage);
 
 router.route("/users")
   .post(registerNewUser);

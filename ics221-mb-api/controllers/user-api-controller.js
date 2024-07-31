@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 import passport from "passport";
 import LocalStrategy from "passport-local";
 import jwt from "jsonwebtoken";
+import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
+
+let jwtOptions = {};
+jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+jwtOptions.secretOrKey = process.env.JWT_SECRET;
 
 const userModel = mongoose.model("user");
 
@@ -55,6 +60,25 @@ passport.use(
       return done(null, user);
     } catch (error) {
       // error searching for user
+      return done(error);
+    }
+  })
+);
+
+// Configure JWT Token Auth
+passport.use(
+  new JwtStrategy(jwtOptions, async (jwt_payload, done) => {
+    try {
+      const user = await userModel.findById(jwt_payload.sub).exec();
+      if (!user) {
+        // user wasn't found
+        return done(null, false);
+      } else {
+        // user found!
+        return done(null, user);
+      }
+    } catch (error) {
+      // error in searching for user
       return done(error);
     }
   })
