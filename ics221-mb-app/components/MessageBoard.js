@@ -9,25 +9,32 @@ const MessageBoard = ({ jsonData }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const addNewMessage = async (values) => {
-    axios
-      .post(`${process.env.NEXT_PUBLIC_HOST}/v1/messages`, values)
-      .then((response) => {
-        const updatedMessages = [response.data, ...messages];
-        setMessages(updatedMessages);
-      })
-      .catch((error) => {
-        console.error("Error:", error.response.data);
-      });
+    const axiosReqConfig = {
+      url: `${process.env.NEXT_PUBLIC_HOST}/v1/messages`,
+      method: "post",
+      headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
+      data: values,
+    };
+
+    try {
+      const response = await axios(axiosReqConfig);
+      const updatedMessages = [response.data, ...messages];
+      setMessages(updatedMessages);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
-  const logInUser = (values) => {
-    console.log(values);
-    // TODO: change the state of the boolean state hook to true (call the set function)
-    axios
-    .post(`${process.env.NEXT_PUBLIC_HOST}/v1/login`, values)
-    .catch((error) => {
-      console.error("Error:", error.response.data);
-    });
+  const logInUser = async (values) => {
+    try {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/v1/login`, values);
+      if (response.status === 200) {
+        sessionStorage.setItem("token", response.data.token);
+        setIsAuthenticated(true);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
