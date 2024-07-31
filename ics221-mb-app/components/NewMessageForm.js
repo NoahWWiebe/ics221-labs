@@ -1,14 +1,8 @@
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { Formik } from 'formik';
-import * as yup from 'yup';
+import * as yup from "yup";
 
 const schema = yup.object().shape({
-  name: yup
-    .string()
-    .trim()
-    .min(2, 'Name must be at least ${min} characters.')
-    .max(30, 'Name must be no more than ${max} characters')
-    .required('A name is required.'),
   msgText: yup
     .string()
     .trim()
@@ -18,12 +12,22 @@ const schema = yup.object().shape({
 });
 
 const NewMessageForm = ({ addNewMessage }) => {
-  const handleFormData = (values, { resetForm, setSubmitting }) => {
+  
+  const handleFormData = ( values, { resetForm, setSubmitting }) => {
+      /* addNewMessage(values)
+     * This is a function that needs to be passed to 
+     * this Component and implemented in the Parent.
+     * values will contain the data this Component 
+     * collected from the Form and will be passed to
+     * the Parent Component via this function.
+     */
     addNewMessage(values);
+    // reset the Form to prevent a double submit
     resetForm();
+    // sets isSubmitting to false to finish submission
     setSubmitting(false);
-  };
-
+  }
+  
   return (
     <Card className="mb-3">
       <Card.Body>
@@ -31,7 +35,7 @@ const NewMessageForm = ({ addNewMessage }) => {
         <Formik
           validationSchema={schema}
           onSubmit={handleFormData}
-          initialValues={{ name: '', msgText: '' }}
+          initialValues={{ msgText: '' }}
         >
           {({
             handleSubmit,
@@ -43,21 +47,7 @@ const NewMessageForm = ({ addNewMessage }) => {
           }) => (
             <Form noValidate onSubmit={handleSubmit}>
               <Row className="align-items-center">
-                <Form.Group as={Col} md={6} controlId="name">
-                  <Form.Label>Enter Name:</Form.Label>
-                  <Form.Control
-                    placeholder="Your name"
-                    value={values.name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    isValid={touched.name && !errors.name}
-                    isInvalid={touched.name && errors.name}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.name}
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group as={Col} md={6} controlId="msgText">
+                <Form.Group as={Col} md={9} controlId="msgText">
                   <Form.Label>Enter Message:</Form.Label>
                   <Form.Control
                     placeholder="Your message"
@@ -68,10 +58,10 @@ const NewMessageForm = ({ addNewMessage }) => {
                     isInvalid={touched.msgText && errors.msgText}
                   />
                   <Form.Control.Feedback type="invalid">
-                    {errors.msgText}
+                    {errors.messageText}
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Col md={12}>
+                <Col>
                   <Button variant="primary" type="submit" className="mt-3">
                     Submit
                   </Button>
@@ -83,6 +73,6 @@ const NewMessageForm = ({ addNewMessage }) => {
       </Card.Body>
     </Card>
   );
-};
+}
 
 export default NewMessageForm;
