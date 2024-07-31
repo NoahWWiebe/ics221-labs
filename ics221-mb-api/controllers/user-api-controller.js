@@ -8,7 +8,7 @@ const registerNewUser = async (req, res) => {
   //res.status(200).send("Successful API New User POST Request");
   try {
     if (await alreadyExists(req.body.email, req.body.username)) {
-      res.status(429).json({
+      res.status(403).json({
         error: "Already Exists",
         message: "The username or email already exists.",
       });

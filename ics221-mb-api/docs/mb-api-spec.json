@@ -204,6 +204,67 @@
           }
         }
       }
+    },
+    "/login": {
+      "description": "User login",
+      "post": {
+        "summary": "Login user",
+        "operationId": "loginUser",
+        "description": "Authenticate a user and return a JWT token.",
+        "requestBody": {
+          "description": "User's login data",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["username", "password"],
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": "Username or email of the user.",
+                    "example": "user@example.com or user1"
+                  },
+                  "password": {
+                    "type": "string",
+                    "maxLength": 64,
+                    "format": "password",
+                    "description": "Password of the user.",
+                    "example": "password123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully logged in.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "JWT Token",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request. The message in the body of the Request is either missing or malformed."
+          },
+          "401": {
+            "description": "Username or password don't match"
+          },
+          "429": {
+            "$ref": "#/components/responses/429TooManyRequests"
+          }
+        }
+      }
     }
   }
 }
