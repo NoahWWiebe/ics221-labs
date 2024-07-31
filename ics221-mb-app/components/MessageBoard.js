@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import MessageTable from "./MessageTable";
 import NewMessageForm from "./NewMessageForm";
 import axios from "axios";
+import LoginForm from "./LoginForm";
 
 const MessageBoard = ({ jsonData }) => {
   const [messages, setMessages] = useState(jsonData);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const addNewMessage = async (values) => {
     axios
@@ -18,9 +20,18 @@ const MessageBoard = ({ jsonData }) => {
       });
   };
 
+  const logInUser = (values) => {
+    console.log(values);
+    // TODO: change the state of the boolean state hook to true (call the set function)
+  };
+
   return (
     <>
-      <NewMessageForm addNewMessage={addNewMessage} />
+      {isAuthenticated ? (
+        <NewMessageForm addNewMessage={addNewMessage} />
+      ) : (
+        <LoginForm logInUser={logInUser} />
+      )}
       <MessageTable messages={messages} />
     </>
   );
