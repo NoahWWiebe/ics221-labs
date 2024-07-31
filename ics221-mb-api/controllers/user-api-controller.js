@@ -59,4 +59,9 @@ passport.use(
   })
 );
 
-export { registerNewUser };
+// Login Handler
+const logInUser = (req, res) => {
+  res.status(200).send("Successful API Login Request");
+};
+
+export { registerNewUser, logInUser };

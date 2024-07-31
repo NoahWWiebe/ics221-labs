@@ -4,6 +4,7 @@ import {
   addNewMessage,
 } from "../controllers/msg-api-controller.js";
 import { registerNewUser } from "../controllers/user-api-controller.js";
+import { logInUser } from "../controllers/user-api-controller.js";
 import passport from "passport";
 
 const router = express.Router();
@@ -15,5 +16,8 @@ router
 
 router.route("/users")
   .post(registerNewUser);
+
+router.route("/login")
+  .post(logInUser);
 
 export default router;
