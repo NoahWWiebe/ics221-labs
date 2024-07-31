@@ -18,6 +18,6 @@ router.route("/users")
   .post(registerNewUser);
 
 router.route("/login")
-  .post(logInUser);
+  .post(passport.authenticate('local', { session: false }), logInUser);
 
 export default router;

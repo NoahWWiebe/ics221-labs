@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import passport from "passport";
-import { BasicStrategy } from "passport-http";
+import LocalStrategy from "passport-local";
 
 const userModel = mongoose.model("user");
 
@@ -36,7 +36,7 @@ const alreadyExists = async (email, username) =>
   });
 
 passport.use(
-  new BasicStrategy(async (userIdent, password, done) => {
+  new LocalStrategy(async (userIdent, password, done) => {
     try {
       const user = await userModel
         .findOne({
