@@ -12,6 +12,13 @@
   ],
   "security": [],
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
       "message": {
         "type": "object",
@@ -135,7 +142,8 @@
           }
         }
       },
-      "put": {
+      "post": {
+        "security": [{ "bearerAuth": [] }],
         "summary": "Add messages",
         "operationId": "addNewMessage",
         "description": "Add a new message.",
@@ -162,6 +170,9 @@
           },
           "400": {
             "description": "Bad Request. The message in the body of the Request is either missing or malformed."
+          },
+          "401": {
+            "description": "Unauthorized."
           },
           "429": {
             "$ref": "#/components/responses/429TooManyRequests"
