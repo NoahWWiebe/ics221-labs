@@ -23,6 +23,11 @@ const MessageBoard = ({ jsonData }) => {
   const logInUser = (values) => {
     console.log(values);
     // TODO: change the state of the boolean state hook to true (call the set function)
+    axios
+    .post(`${process.env.NEXT_PUBLIC_HOST}/v1/login`, values)
+    .catch((error) => {
+      console.error("Error:", error.response.data);
+    });
   };
 
   return (
