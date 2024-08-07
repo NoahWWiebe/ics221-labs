@@ -12,6 +12,11 @@ const messageModel = mongoose.model('message');
 //   { id: 0, name: "Sarah", msgText: "I heart React" },
 // ];
 
+// PATCH Request Handler
+const updateMessage = async (req, res) => {
+  res.status(200).send('Successful API Update Message PATCH Request');
+} 
+
 // GET Request Handler
 const getAllMessages = async (req, res) => {
   try {
@@ -45,4 +50,4 @@ const addNewMessage = async (req, res) => {
   }
 };
 
-export { getAllMessages, addNewMessage };
+export { updateMessage, getAllMessages, addNewMessage };
