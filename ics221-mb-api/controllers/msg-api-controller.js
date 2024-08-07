@@ -39,6 +39,11 @@ const updateMessage = async (req, res) => {
   }
 };
 
+// DELETE Request Handler
+const deleteMessage = async (req, res) => {
+  res.status(200).send('Successful API DELETE Message Request');
+}
+
 // GET Request Handler
 const getAllMessages = async (req, res) => {
   try {
@@ -74,4 +79,4 @@ const addNewMessage = async (req, res) => {
   }
 };
 
-export { updateMessage, getAllMessages, addNewMessage };
+export { updateMessage, deleteMessage, getAllMessages, addNewMessage };
